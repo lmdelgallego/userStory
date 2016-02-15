@@ -1,0 +1,17 @@
+{
+  "name": "op",
+  "version": "1.0.0",
+  "description": "This is a SonovistaOP app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Del Gallego",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "morgan": "^1.6.1",
+    "socket.io": "^1.4.5"
+  }
+}
