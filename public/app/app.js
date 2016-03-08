@@ -1,12 +1,12 @@
 var app = angular.module('MyApp',[
 		'ngRoute',
-		'reverseFilter'
+		'reverseFilter',
+		'ui.router'
 ]);
 
 
-
-app.config(function($routeProvider, $locationProvider, $httpProvider) {
-	$routeProvider
+app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+	/*$routeProvider
 		.when('/',{
 			templateUrl: 'app/views/pages/home.html'
 		})
@@ -24,9 +24,35 @@ app.config(function($routeProvider, $locationProvider, $httpProvider) {
 					return Story.allStories();
 				}
 			}
-		});
+		});*/
+		
+	  $stateProvider
 
-		$locationProvider.html5Mode(true);
+	  // Base State
+	  .state('/', {
+		url: '/',
+		templateUrl: 'app/views/pages/home.html'
+	  })
+	  
+	  .state('login', {
+		url: '/login',
+		templateUrl: 'app/views/pages/login.html'
+	  })
+	  
+	  .state('allStories', {
+		url: '/allStories',
+		templateUrl: 'app/views/pages/allStories.html',
+		controller: 'AllStoriesController',
+		  resolve:{
+				stories: function(Story){
+					return Story.allStories();
+				}
+		  }
+	  });
+	
+
+	$locationProvider.html5Mode(true).hashPrefix('!');
+	$urlRouterProvider.otherwise('/');
 });
 
 app.config(['$httpProvider', function($httpProvider) { 
