@@ -6,8 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>User Story</title>
 		<base href="/">
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- Angular Material CSS -->
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,49 +18,66 @@
 
 
 	</head>
-	<body >
+	<body layout="row" ng-controller="MainController">
+		
+		<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z3 md-navigation-drawer" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+			<md-toolbar layout="row" layout-align="center center" ng-if="loggedIn == true">
+				<span flex></span>
+				<div layout="row" layout-align="start center">
+					<md-icon  md-svg-icon="avatars:svg-1"></md-icon>
+					<span flex></span>
+				</div>
+				<span flex></span>
+				<md-menu md-offset="0 20" >
+				 <!-- Trigger element is a md-button with an icon -->
+				 <md-button ng-click="$mdOpenMenu($event)"  aria-label="Open sample menu">
+				 <span>{{ user.username }}</span>
+				   <md-icon md-svg-icon="hardware:ic_keyboard_arrow_down_24px"></md-icon>
+				 </md-button>
+				 <md-menu-content>
+				   <md-menu-item><md-button ng-click="doLogout()">Logout</md-button></md-menu-item>
+				 </md-menu-content>
+				</md-menu>
+			</md-toolbar>
 
-	<nav class="navbar navbar-default" role="navigation" ng-controller="MainController">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">User Story</a>
-			</div>
-	
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				
-				<ul class="nav navbar-nav navbar-right">
-					<li ng-if="!loggedIn"><a href="/login">Login</a></li>
-					<li ng-if="!loggedIn"><a href="/singup">Singup</a></li>
-					<li class="dropdown" ng-if="loggedIn == true">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello {{ user.username}} <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#" ng-click="doLogout()">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div><!-- /.navbar-collapse -->
-		</div>
-	</nav>
+			<md-list>
+			 	<md-list-item class="md-2-line" ng-repeat="item in menu" role="link" ng-click="toggleSidenav('left')" ng-href="#/{{item.link}}">
+					<md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
+					<div class="md-list-item-text">
+						<span class="md-body-2">{{item.title}}</span>
+					</div>
+			 	</md-list-item> 
+			 	<md-list-item class="md-2-line" role="link" ng-click="toggleSidenav('left')" ng-href="#/login" ng-if="!loggedIn">
+					<md-icon md-svg-icon="action:ic_lock_24px" aria-label="Login"></md-icon>
+					<div class="md-list-item-text">
+						<span class="md-body-2">Login</span>
+					</div>
+			 	</md-list-item> 
+			 	<md-list-item class="md-2-line" role="link" ng-click="toggleSidenav('left')" ng-href="#/singup" ng-if="!loggedIn">
+					<md-icon md-svg-icon="action:ic_perm_identity_24px" aria-label="Singup"></md-icon>
+					<div class="md-list-item-text">
+						<span class="md-body-2">Singup</span>
+					</div>
+			 	</md-list-item> 
 
-		<div class="container">
-			<div class="" ui-view></div>
-		</div>
+			</md-list>
+		</md-sidenav>
+
+			<div layout="row" ui-view></div>
+
 
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script src="https://code.angularjs.org/1.5.0/angular-route.min.js" charset="utf-8"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+		
 		<script src="socket.io/socket.io.js" charset="utf-8"></script>
 
 		<script src="app/directives/reverse.js"></script>
