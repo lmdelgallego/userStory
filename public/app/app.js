@@ -2,11 +2,12 @@ var app = angular.module('MyApp',[
 		'ngRoute',
 		'reverseFilter',
 		'ngMaterial',
-		'ui.router'
+		'ui.router',
+		'restangular'
 ]);
 
 
-app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider, $mdIconProvider) {
+app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider, $mdIconProvider, RestangularProvider) {
 	/*$routeProvider
 		.when('/',{
 			templateUrl: 'app/views/pages/home.html'
@@ -26,7 +27,8 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProv
 				}
 			}
 		});*/
-		
+
+	RestangularProvider.setBaseUrl('/api')
 	  $stateProvider
 
 	  // Base State
@@ -39,12 +41,12 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProv
 	  	url: '/singup',
 	  	templateUrl: 'app/views/pages/singup.html'
 	  })
-	  
+
 	  .state('login', {
 		url: '/login',
 		templateUrl: 'app/views/pages/login.html'
 	  })
-	  
+
 	  .state('allStories', {
 		url: '/allStories',
 		templateUrl: 'app/views/pages/allStories.html',
@@ -55,12 +57,12 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, $stateProv
 				}
 		  }
 	  });
-	
+
 	$urlRouterProvider.otherwise('/');
 
 	$mdIconProvider
 	// linking to https://github.com/google/material-design-icons/tree/master/sprites/svg-sprite
-	// 
+	//
 	.iconSet('action', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-action.svg', 24)
 	.iconSet('alert', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-alert.svg', 24)
 	.iconSet('av', 'https://raw.githubusercontent.com/google/material-design-icons/master/sprites/svg-sprite/svg-sprite-av.svg', 24)

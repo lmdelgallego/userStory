@@ -1,21 +1,39 @@
-app.factory('Story', ['$http', function($http){
-		
-		var storyFactory = {};
+app.factory('Story',['Restangular', function(Restantular){
+	var storyFactory = {};
 
-		storyFactory.allStories = function(){
-			return $http.get('/api/all_stories');
-		}
+	storyFactory.allStories = function(){
+		return Restantular.all('all_stories').getList().$object;
+	}
 
-		storyFactory.create = function(storyData){
-			return $http.post('/api',storyData);
-		}
+	storyFactory.create = function(storyData){
+		return Restantular.all('').post(storyData);
+	}
 
-		storyFactory.allStory = function(){
-			return $http.get('/api');
-		}
+	storyFactory.allStory = function(){
+		return Restantular.all('').getList().$object;
+	}
 
-		return storyFactory;
+	return storyFactory;
 }])
+
+// app.factory('Story', ['$http', function($http){
+//
+// 		var storyFactory = {};
+//
+// 		storyFactory.allStories = function(){
+// 			return $http.get('/api/all_stories');
+// 		}
+//
+// 		storyFactory.create = function(storyData){
+// 			return $http.post('/api',storyData);
+// 		}
+//
+// 		storyFactory.allStory = function(){
+// 			return $http.get('/api');
+// 		}
+//
+// 		return storyFactory;
+// }])
 .factory('socketio', ['$rootScope', function($rootScope){
 	var socket = io.connect();
 	return {

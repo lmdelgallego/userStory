@@ -16,6 +16,7 @@
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^4.4.4",
     "morgan": "^1.6.1",
+    "restangular": "^1.5.2",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "angular-animate": "^1.5.0",
     "angular-aria": "^1.5.0",
     "angular-material": "^1.0.6",
-    "angular-messages": "^1.5.0"
+    "angular-messages": "^1.5.0",
+    "jquery": "^2.2.1"
   }
 }
